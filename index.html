@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>ivnj</title>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+	<style>
+		:root {
+			--fg: white;
+			--bg: #111111;
+			--header: #343434;
+			--command: #8fcb61;
+			--bang: #85f6f6;
+			--link: #a597ff;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+
+			font-family: 'Oxygen Mono', monospace;
+		}
+
+		body {
+			display: flex;
+			height: 100vh;
+			overflow-y: hidden;
+			padding: 2rem;
+		}
+
+		pre {
+			margin: 0;
+			line-height: 125%;
+			font-size: 1.17em;
+			width: 100%;
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		a {
+			color: var(--link);
+		}
+
+		.command {
+			color: var(--command)
+		}
+
+		.command:before {
+			color: var(--bang);
+			content: "~$ ";
+		}
+
+		.terminal {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			max-width: 80ch;
+			max-height: 100%;
+			background: var(--bg);
+			color: var(--fg);
+			border-radius: 1rem;
+			margin: auto;
+		}
+
+		.header {
+			display: flex;
+			align-items: center;
+			background: var(--header);
+			border-radius: 1rem 1rem 0 0;
+			padding: .3em;
+			flex-shrink: 0;
+		}
+
+		.nav {
+			display: flex;
+			background: var(--header);
+			z-index: 2;
+			border-radius: 1em;
+		}
+
+		.header pre {
+			margin-left: -5em;
+			text-align: center;
+
+			white-space: nowrap;
+			overflow-x: hidden;
+		}
+
+		.b {
+			width: 1em;
+			height: 1em;
+			border-radius: 1em;
+			margin: .5em;
+			border: 1px solid rgba(0, 0, 0, 0.1);
+		}
+
+		.b.r {
+			background: #ff3b30;
+		}
+
+		.b.y {
+			background: #8e8e93;
+		}
+
+		.b.g {
+			background: #28cd41;
+		}
+
+		.content {
+			padding: 1rem;
+			overflow-y: auto;
+		}
+
+	</style>
+</head>
+<body>
+<div class="terminal">
+	<div class="header">
+		<div class="nav">
+			<div class="b r"></div>
+			<div class="b y"></div>
+			<div class="b g"></div>
+		</div>
+		<pre>ivnj.org</pre>
+	</div>
+	<div class="content">
+		<pre class="command">about</pre>
+		<pre>Ivan Ermakov</pre>
+		<pre>Software engineer</pre>
+		<pre class="command">contact</pre>
+		<pre>├─ blog</pre>
+		<pre>│  └─ <a href="https://blog.ivnj.org">blog.ivanj.org</a></pre>
+		<pre>├─ social</pre>
+		<pre>│  ├─ <a href="https://github.com/ivanjermakov">github.com</a></pre>
+		<pre>│  └─ <a href="https://www.linkedin.com/in/ivanjermakov">linkedin.com</a></pre>
+		<pre>└─ email</pre>
+		<pre>   └─ <a href="mailto:ivanjermakov1@gmail.com">ivanjermakov1@gmail.com</a></pre>
+		<pre> </pre>
+		<pre>3 directories, 4 files</pre>
+		<pre class="command">cowsay "have a nice day"</pre>
+		<pre>
+ _________________
+< have a nice day >
+ -----------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+		</pre>
+		<pre class="command"></pre>
+	</div>
+</div>
+</body>
+</html>
