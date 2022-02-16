@@ -12,12 +12,22 @@
 
 	<style>
 		:root {
-			--fg: white;
-			--bg: #111111;
-			--header: #343434;
-			--command: #8fcb61;
+			--fg: black;
+			--bg: #eeeeee;
+			--term-bg: white;
+			--header: #e3e2e2;
+			--command: #5a9f23;
 			--bang: #85f6f6;
-			--link: #a597ff;
+			--link: #7060ce;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--fg: white;
+				--bg: black;
+				--term-bg: #111111;
+				--header: #343434;
+			}
 		}
 
 		* {
@@ -34,6 +44,7 @@
 			height: 100vh;
 			overflow-y: hidden;
 			padding: 2rem;
+			background: var(--bg);
 		}
 
 		pre {
@@ -63,7 +74,7 @@
 			width: 100%;
 			max-width: 80ch;
 			max-height: 100%;
-			background: var(--bg);
+			background: var(--term-bg);
 			color: var(--fg);
 			border-radius: 1rem;
 			margin: auto;
