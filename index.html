@@ -4,29 +4,48 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>ivnj</title>
+	<title>Ivan Ermakov</title>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Cantarell&family=DM+Mono&display=swap" rel="stylesheet">
 
 	<style>
-		:root {
+
+        @font-face { 
+            font-family: 'Maple';
+            src: url('font/MapleMono/MapleMono-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face { 
+            font-family: 'Maple';
+            src: url('font/MapleMono/MapleMono-Italic.ttf') format('truetype');
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        @font-face { 
+            font-family: 'Maple';
+            src: url('font/MapleMono/MapleMono-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        :root {
 			--fg: black;
 			--bg: #eeeeee;
-			--term-bg: white;
-			--header: #e3e2e2;
-			--command: #5a9f23;
-			--bang: #85f6f6;
-			--link: #7060ce;
+            --accent: #44ff22;
+            --command: var(--accent);
+			--bang: var(--accent);
+			--link: var(--accent);
 		}
 
 		@media (prefers-color-scheme: dark) {
 			:root {
 				--fg: white;
-				--bg: black;
-				--term-bg: #111111;
-				--header: #343434;
+				--bg: #111111;
 			}
 		}
 
@@ -36,14 +55,14 @@
 			box-sizing: border-box;
 			font-size: 16px;
 
-			font-family: 'DM Mono', monospace;
+			font-family: 'Maple', 'DM Mono', monospace;
 		}
 
 		body {
 			display: flex;
 			height: 100vh;
 			overflow-y: hidden;
-			padding: 2rem;
+			padding: 1rem;
 			background: var(--bg);
 		}
 
@@ -57,6 +76,7 @@
 
 		a {
 			color: var(--link);
+            font-style: italic;
 		}
 
 		.command {
@@ -68,83 +88,32 @@
 			content: "~$ ";
 		}
 
-		.terminal {
+		.content {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
 			max-width: 80ch;
 			max-height: 100%;
-			background: var(--term-bg);
 			color: var(--fg);
-			border-radius: 1rem;
 			margin: auto;
 		}
 
-		.header {
-			display: flex;
-			align-items: center;
-			background: var(--header);
-			border-radius: 1rem 1rem 0 0;
-			padding: .1em;
-			flex-shrink: 0;
-		}
-
-		.nav {
-			display: flex;
-			background: var(--header);
-			z-index: 2;
-			border-radius: 1em;
-		}
-
-		.header pre {
-			margin-left: -5em;
-			text-align: center;
-			font-family: 'Cantarell', sans-serif;
-			white-space: nowrap;
-			overflow-x: hidden;
-		}
-
-		.b {
-			width: 1em;
-			height: 1em;
-			border-radius: 1em;
-			margin: .5em;
-			border: 1px solid rgba(0, 0, 0, 0.1);
-		}
-
-		.b.r {
-			background: #ff3b30;
-		}
-
-		.b.y {
-			background: #8e8e93;
-		}
-
-		.b.g {
-			background: #28cd41;
-		}
-
-		.content {
+		.terminal {
 			padding: 1rem;
 			overflow-y: auto;
+			border: 2px solid;
+            border-color: var(--accent);
 		}
 
 	</style>
 </head>
 <body>
-<div class="terminal">
-	<div class="header">
-		<div class="nav">
-			<div class="b r"></div>
-			<div class="b y"></div>
-			<div class="b g"></div>
-		</div>
-		<pre>ivnj.org</pre>
-	</div>
-	<div class="content">
+<div class="content">
+	<div class="terminal">
 		<pre class="command">cat about</pre>
 		<pre>Ivan Ermakov</pre>
 		<pre>Software engineer</pre>
+		<pre> </pre>
 		<pre class="command">tree contacts</pre>
 		<pre>├─ blog</pre>
 		<pre>│  └─ <a href="https://blog.ivnj.org">blog.ivnj.org</a></pre>
@@ -154,7 +123,6 @@
 		<pre>└─ email</pre>
 		<pre>   └─ <a href="mailto:ivanjermakov1@gmail.com">ivanjermakov1@gmail.com</a></pre>
 		<pre> </pre>
-		<pre>3 directories, 4 files</pre>
 		<pre class="command">cowsay "have a nice day"</pre>
 		<pre>
  _________________
