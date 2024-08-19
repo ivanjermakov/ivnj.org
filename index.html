@@ -35,8 +35,8 @@
 
         :root {
 			--fg: black;
-			--bg: #eeeeee;
-            --accent: #44ff22;
+			--bg: #f5f5f5;
+            --accent: #5000a0;
             --command: var(--accent);
 			--bang: var(--accent);
 			--link: var(--accent);
@@ -46,6 +46,7 @@
 			:root {
 				--fg: white;
 				--bg: #111111;
+                --accent: #44dd22;
 			}
 		}
 
@@ -56,6 +57,7 @@
 			font-size: 16px;
 
 			font-family: 'Maple', 'DM Mono', monospace;
+            font-variant-ligatures: none;
 		}
 
 		body {
@@ -70,8 +72,7 @@
 			margin: 0;
 			line-height: 125%;
 			width: 100%;
-			white-space: pre-wrap;
-			word-break: break-all;
+            line-break: nowrap
 		}
 
 		a {
@@ -79,13 +80,18 @@
             font-style: italic;
 		}
 
-		.command {
+		.command, .sqlite {
 			color: var(--command)
 		}
 
 		.command:before {
 			color: var(--bang);
 			content: "~$ ";
+		}
+
+		.sqlite:before {
+			color: var(--bang);
+            content: "sqlite> ";
 		}
 
 		.content {
@@ -99,8 +105,9 @@
 		}
 
 		.terminal {
+			max-width: 100%;
+			overflow: auto;
 			padding: 1rem;
-			overflow-y: auto;
 			border: 2px solid;
             border-color: var(--accent);
 		}
@@ -110,10 +117,11 @@
 <body>
 <div class="content">
 	<div class="terminal">
-		<pre class="command">cat about</pre>
+		<pre class="command">cat about.txt</pre>
 		<pre>Ivan Ermakov</pre>
 		<pre>Software engineer</pre>
 		<pre> </pre>
+
 		<pre class="command">tree contacts</pre>
 		<pre>├─ blog</pre>
 		<pre>│  └─ <a href="https://blog.ivnj.org">blog.ivnj.org</a></pre>
@@ -123,17 +131,14 @@
 		<pre>└─ email</pre>
 		<pre>   └─ <a href="mailto:ivanjermakov1@gmail.com">ivanjermakov1@gmail.com</a></pre>
 		<pre> </pre>
-		<pre class="command">cowsay "have a nice day"</pre>
-		<pre>
- _________________
-< have a nice day >
- -----------------
-        \   ^__^
-         \  (oo)\_______
-            (__)\       )\/\
-                ||----w |
-                ||     ||
-		</pre>
+
+		<pre class="sqlite">select name, desc from project</pre>
+        <pre><a href="https://github.com/nois-lang/noisc">Nois</a>       Compiled programming language</pre>
+        <pre><a href="https://github.com/ivanjermakov/biter">Biter</a>      BitTorrent client in Rust</pre>
+        <pre><a href="https://github.com/ivanjermakov/wordle">Wordle</a>     Puzzle game in terminal</pre>
+        <pre><a href="https://gamedb.ivnj.org/">Game DB</a>    Computer videogame explorer</pre>
+		<pre> </pre>
+
 		<pre class="command"></pre>
 	</div>
 </div>
