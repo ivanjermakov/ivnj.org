@@ -1,43 +1,36 @@
 const enableMatrix = true;
-const maxOpacity = 0.4;
-const fps = 8;
-const cellSize = { w: 12, h: 20 };
+const maxOpacity = 1;
+const fps = 10;
+const cellSize = { w: 14, h: 20 };
 const tailLength = 8;
 const alphabet = "#$%&0123456789?@ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const heightScrolloff = 20;
 
-const overlay = document.getElementById("overlay");
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
 const colStates = [];
-const grid = [];
+let cols;
+let rows;
+let overflow;
 
 function init() {
-	overlay.innerHTML = "";
-	grid.length = 0;
-	colStates.length = 0;
+	const dpr = window.devicePixelRatio;
 
-	const cols = Math.ceil(overlay.clientWidth / cellSize.w);
-	const rows = Math.ceil(overlay.clientHeight / cellSize.h);
-
-	overlay.style["grid-template-columns"] = `repeat(${cols}, ${cellSize.w}px)`;
-	overlay.style["grid-template-rows"] = `repeat(${rows}, ${cellSize.h}px)`;
-	const overflow = {
-		w: overlay.clientWidth - cols * cellSize.w,
-		h: overlay.clientHeight - rows * cellSize.h,
+	const { width, height } = {
+		width: document.body.clientWidth,
+		height: document.body.clientHeight,
 	};
-	overlay.style["margin-left"] = `${overflow.w / 2}px`;
-	overlay.style["margin-top"] = `${overflow.h / 2}px`;
+	canvas.width = width * dpr;
+	canvas.height = height * dpr;
 
-	for (let i = 0; i < rows; i++) {
-		const row = [];
-		grid.push(row);
-		for (let j = 0; j < cols; j++) {
-			const c = document.createElement("span");
-			c.className = "cell";
-			row.push(c);
-			overlay.appendChild(c);
-		}
-	}
+	cols = Math.ceil(width / cellSize.w);
+	rows = Math.ceil(height / cellSize.h);
+	overflow = {
+		w: width - cols * cellSize.w,
+		h: height - rows * cellSize.h,
+	};
 
+	colStates.length = 0;
 	for (let j = 0; j < cols; j++) {
 		colStates.push({
 			y:
@@ -50,40 +43,50 @@ function init() {
 }
 
 function update() {
-	for (let i = 0; i < grid.length; i++) {
-		const row = grid[i];
-		for (let j = 0; j < row.length; j++) {
-			const c = row[j];
-			const dist = colStates[j].y - i;
+	const dpr = window.devicePixelRatio;
+	const bg = getComputedStyle(document.body).getPropertyValue("--bg");
+	const fg = getComputedStyle(document.body).getPropertyValue("--fg");
+	const accent = getComputedStyle(document.body).getPropertyValue("--accent");
 
-			c.style.opacity = maxOpacity;
+	ctx.font = `${16 * dpr}px 'DM Mono'`;
+	ctx.textBaseline = "middle";
+	ctx.globalAlpha = 1;
+	ctx.fillStyle = bg;
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+	for (let i = 0; i < rows; i++) {
+		for (let j = 0; j < cols; j++) {
+			const dist = colStates[j].y - i;
+			const x = (j * cellSize.w + overflow.w / 2) * dpr;
+			const y = (i * cellSize.h + overflow.h / 2 + cellSize.h / 2) * dpr;
+
+			ctx.globalAlpha = maxOpacity;
 			if (dist < 0 || dist > tailLength) {
-				c.textContent = "";
+				continue;
 			} else if (dist === 0) {
-				c.textContent = colStates[j].c;
-				c.style.color = "var(--fg)";
+				ctx.fillStyle = fg;
+				ctx.fillText(colStates[j].c, x, y);
 			} else {
-				c.textContent = genChar();
-				c.style.color = "var(--accent)";
-				c.style["font-weight"] = "bold";
-				c.style.opacity = (1 - (dist / tailLength) ** 1.5) * maxOpacity;
+				ctx.fillStyle = accent;
+				ctx.globalAlpha = (1 - (dist / tailLength) ** 1.5) * maxOpacity;
+				ctx.fillText(genChar(), x, y);
 			}
 		}
 	}
-	for (let i = 0; i < colStates.length; i++) {
-		const rows = grid.length;
-		if (colStates[i].y >= rows + tailLength) {
-			colStates[i].y = -Math.ceil(Math.random() * heightScrolloff);
-			colStates[i].c = genChar();
-			colStates[i].speed = genSpeed();
+
+	for (const state of colStates) {
+		if (state.y >= rows + tailLength) {
+			state.y = -Math.ceil(Math.random() * heightScrolloff);
+			state.c = genChar();
+			state.speed = genSpeed();
 		} else {
-			colStates[i].y += colStates[i].speed;
+			state.y += state.speed;
 		}
 	}
 }
 
 function genChar() {
-	return alphabet[Math.ceil(Math.random() * alphabet.length)];
+	return alphabet[Math.floor(Math.random() * alphabet.length)];
 }
 
 function genSpeed() {
