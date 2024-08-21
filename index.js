@@ -1,5 +1,5 @@
 const enableMatrix = true;
-const maxOpacity = 1;
+const maxOpacity = 0.6;
 const fps = 10;
 const cellSize = { w: 14, h: 20 };
 const tailLength = 8;
