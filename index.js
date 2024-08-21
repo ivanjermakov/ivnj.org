@@ -1,4 +1,5 @@
 const enableMatrix = true;
+const maxOpacity = 0.4;
 const fps = 8;
 const cellSize = { w: 12, h: 20 };
 const tailLength = 8;
@@ -55,7 +56,7 @@ function update() {
 			const c = row[j];
 			const dist = colStates[j].y - i;
 
-			c.style.opacity = 1;
+			c.style.opacity = maxOpacity;
 			if (dist < 0 || dist > tailLength) {
 				c.textContent = "";
 			} else if (dist === 0) {
@@ -65,7 +66,7 @@ function update() {
 				c.textContent = genChar();
 				c.style.color = "var(--accent)";
 				c.style["font-weight"] = "bold";
-				c.style.opacity = 1 - (dist / tailLength) ** 1.5;
+				c.style.opacity = (1 - (dist / tailLength) ** 1.5) * maxOpacity;
 			}
 		}
 	}
